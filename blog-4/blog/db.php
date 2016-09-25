@@ -2,7 +2,7 @@
 
 $config = array(
 	'username' => 'root',
-	'password' => 'tutsplus',
+	'password' => '',
 	'database' => 'blog'
 );
 
@@ -21,18 +21,23 @@ function connect($config)
 	}
 }
 
-
+// admin/index.php ve single.php için
 function query($query, $bindings, $conn)
 {
 	$stmt = $conn->prepare($query);
 	$stmt->execute($bindings);
 
+	// hem database update hem de value fetch için kullanıldığından aşağıdaki sta get_by_id'ye taşındı
+	// $results = $stmt->fetchAll();
+
 	return ($stmt->rowCount() > 0) ? $stmt : false;
 }
 
+// index.php için
 function get($tableName, $conn, $limit = 10)
 {
 	try {
+		// we get most recent post at the top with "order by id desc"
 		$result = $conn->query("SELECT * FROM $tableName ORDER BY id DESC LIMIT $limit");
 
 		return ( $result->rowCount() > 0 )
@@ -43,7 +48,7 @@ function get($tableName, $conn, $limit = 10)
 	}
 }
 
-
+// single.php için
 function get_by_id($id, $conn)
 {
 	$query = query(
@@ -52,6 +57,6 @@ function get_by_id($id, $conn)
 		$conn
 	);
 
-	if ( $query ) $query->fetchAll();
-	// else
+	return $query->fetchAll();
+	// printer_draw_elipse(printer_handle, ul_x, ul_y, lr_x, lr_y)
 }

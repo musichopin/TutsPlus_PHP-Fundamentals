@@ -15,10 +15,12 @@
 	echo '<br>';
 
 	/*
-	filename: filename
-	substr: extension
-	basename: basename
-	dirname: directory
+	fullname = img/flat-file-blog-engine.png ise
+
+	filename: filename: flat-file-blog-engine 
+	substr: extension: png
+	basename: basename: flat-file-blog-engine.png 
+	dirname: directory: img 
 	pathinfo: universal
 	extract: universal
 	*/
@@ -27,7 +29,8 @@
 	$images = glob('img/*.{png,jpg,jpeg}', GLOB_BRACE);
 	foreach($images as $img) {
 		// echo $img;
-		// echo "\r";
+		// echo "\r"; // görünürde değişim yaratmadı
+		// echo "<br>";
 
 		// OR: base name
 		// echo basename($img);
@@ -71,14 +74,14 @@
 		// $thumb_name = $info['filename'] . '-thumb.' . $info['extension'];
 		
 		// OR
-		// $filename = pathinfo($img, PATHINFO_FILENAME);
-		// $extension = pathinfo($img, PATHINFO_EXTENSION);
-		// $thumb_name = "thumb-{$filename}.{$extension}";
+		$filename = pathinfo($img, PATHINFO_FILENAME);
+		$extension = pathinfo($img, PATHINFO_EXTENSION);
+		$thumb_name = "thumb-{$filename}.{$extension}";
 		/*curly braces added for readability*/
 		
 		// OR
-		extract(pathinfo($img));		
-		$thumb_name = "thumb-{$filename}.{$extension}";
+		// extract(pathinfo($img));		
+		// $thumb_name = "thumb-{$filename}.{$extension}";
 		
 		echo $thumb_name . "\n";
 	}

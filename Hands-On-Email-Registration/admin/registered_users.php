@@ -1,5 +1,8 @@
 <?php 
-require 'functions.php';
+// refers to local server:
+// echo $_SERVER['SERVER_ADDR'];
+
+require '../functions.php';
 
 $registered_users = get_registered_users();
 // print_r($registered_users);

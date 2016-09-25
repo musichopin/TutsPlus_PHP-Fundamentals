@@ -29,7 +29,7 @@ $tuts_sites = array(
 			</li>
 		<?php endforeach ?>
 
-		<!-- delete below to display on web browser -->
+		<!-- ***delete below to display on web browser*** -->
 
 		<!-- foreach($tuts_sites as $name => $url) { ?>
 			<li>

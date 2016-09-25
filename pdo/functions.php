@@ -16,11 +16,13 @@ try {
 	/*sets the attribute for the connection/sets the error mode: default error mode for pdo is gonna be sth called ERRMODE_SILENT. what this means is that we will have to manually fetch any errors. PDO::ATTR_ERRMODE becomes equal to PDO::ERRMODE_EXCEPTION*/
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	// 1. Query Method: Anti-Pattern, there is an injection threat despite the quote method when there is user input. better way is to use prepared statements for user input. query method is acceptable for hardcoding the entire string
+	// 1. Query Method: Anti-Pattern, there is an injection threat despite the quote method when there is user input. better way is to use prepared statements for user input. query method is acceptable for hardcoding the entire string or selecting all values
 	// $results  = $conn -> query('SELECT * FROM users WHERE id = ' . $conn->quote($id));
 	// // mysql yöntemine benzer
 
-	// //print_r($results);
+	// //print_r($results); 
+	// // *** "PDOStatement Object ( [queryString] => SELECT * FROM users WHERE id = '3' )" print eder *** 
+
 	// foreach ($results as $row) {
 	// 		print_r($row); // md array olduğundan print_r loop içerisinde kullanıldı
 	// }
@@ -33,7 +35,7 @@ try {
 
 	// we bind id to the id variable we created earlier. the value in id variable is not embedded to the query
 	$stmt->execute(array('id'=>$id));
-	// alt:
+	// * alt: *
 	// $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 	// $stmt->execute();
 	while($row = $stmt->fetch()) {
@@ -63,23 +65,34 @@ try {
 	while($row = $stmt->fetch()) {
 	// while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
 	// while($row = $stmt->fetch(PDO::ASSOC)) {
-	print_r($row);
+	print_r($row); // ***single d array print eder***
 	}
 	// alt:
 	// $result = $stmt->fetchAll();
-	// print_r($result); // md array print eder
-	// foreach ($result as $row) {
-	// 		print_r($row); // single d array print eder
+	// print_r($result); // ***md array print eder***
+	// foreach ($result as $row) { // foreach loop yerine echo($result[1][user_name]) denebilirdi
+	// 		print_r($row); // single d array print eder (anlamsız)
 	// }
 
 
+/*
 
-	/*
-	// Inserting data
+	// ***Inserting data (yukarıdaki fetching data'ya benzer)***
 	$stmt = $conn->prepare('INSERT INTO users(user_name) VALUES(:username)');
 	// we are not fethcing but inserting this time
+	// users is table, user_name is field, :username is placeholder
 
+	// // alt1:
+	// $binding = array('username'=>'AmyDoe'); // username is placeholder
+	// $stmt->execute($binding);
+	// $binding = array('username'=>'BobbyDoe');
+	// $stmt->execute($binding);
+	// $binding = array('username'=>'CliffDoe');
+	// $stmt->execute($binding);
+
+	// // alt2:
 	$stmt->bindParam('username', $username, PDO::PARAM_STR);
+
 	// $username 'AmyDoe';
 	// $stmt->execute();	
 	// $username 'BobbyDoe';
@@ -87,15 +100,13 @@ try {
 	// $username 'CliffDoe';
 	// $stmt->execute();
 
-	// alt: Multiple bindings. Cool, huh?
+	// alt3: Multiple bindings
 	$users = array('AmyDoe', 'BobbyDoe', 'CliffDoe');
 	foreach($users as $username) {
 		$stmt->execute();
 	}
-	*/
 
-
-	
+*/
 } catch(PDOException $e) {
 	echo 'ERROR: ' . $e->getMessage();
 }

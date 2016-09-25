@@ -1,13 +1,15 @@
 <h1>Create A New Post</h1>
-<form action="" method="post">
+<!-- *VIEW FILE* -->
+<form action="" method="post"> <!-- with action being null, it posts to itself -->
 	<ul>
 		<li>
-			<label for="title">Title: </label>
+			<!-- for corresponds to id -->
+			<label for="title">Title: </label> <!-- field name is title -->
 			<input type="text" name="title" id="title">
 		</li>
 
 		<li>
-			<label for="body">Body: </label>
+			<label for="body">Body: </label> <!-- field name is body -->
 			<textarea name="body" id="body"></textarea>
 		</li>
 

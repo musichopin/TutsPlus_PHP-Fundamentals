@@ -1,0 +1,6 @@
+// composer bu dosyanın bulunduğu directory'de install edilmeden evvel kodlandı
+{
+	"require": {
+		"php-activerecord/php-activerecord": "*"
+	}
+}

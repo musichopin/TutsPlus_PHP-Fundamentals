@@ -24,7 +24,7 @@ function connect($config)
 	}
 }
 
-/*bindings is used as it is prepared sta*/
+/*prepared sta: bindings is used as it is prepared sta*/
 function query($query, $bindings, $conn)
 {
 	$stmt = $conn->prepare($query);
@@ -33,15 +33,23 @@ function query($query, $bindings, $conn)
 	/*finds the parameters and executes it*/
 	$stmt->execute($bindings);
 
+	// print_r($stmt);
+
 	$results = $stmt->fetchAll();
 	/*fetches all the rows*/
 
 	return $results ? $results : false;
 	/*if there are no results we return false*/
+	// alt: index2'de (query(...)[0]) denmemeli:
+	// while($results = $stmt->fetch()) {
+	// return($results);
+	// }
 }
 
 
-/*gets all the rows from the users table*/
+/*query method: gets all the rows from the users table. */
+/* *** query method, id, hardcoded olarak girilseydi de kullanılabilirdi 
+(tüm id leri seçmesinin yanı sıra) *** */
 function get($tableName, $conn)
 {
 	/*try catch block used for testing the validity of the table*/
@@ -49,6 +57,8 @@ function get($tableName, $conn)
 		$result = $conn->query("SELECT * FROM $tableName");
 		/* the query method is fine since we would hard-code the value */
 
+		// print_r($result);
+		
 		/*table'ın boş olması durumunda false return edilir*/
 		return ( $result->rowCount() > 0 )
 			? $result

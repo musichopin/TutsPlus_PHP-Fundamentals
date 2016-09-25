@@ -1,15 +1,15 @@
 <?php
 
 // Manipulating Filenames
-// 3 different ways to capture my-file
+// 3 different ways to capture "my-file"
 // Store result in $file_name
 // Use glob and foreach, if you need to filter through a set of files.
 
 $file_path = 'images/my-file.txt';
 
 # 1 - Best
-//$file_name = pathinfo($file_path, PATHINFO_FILENAME);
-//echo $file_name;
+$file_name = pathinfo($file_path, PATHINFO_FILENAME);
+echo $file_name;
 
 # 2 - Second Best
 //$file_name = basename($file_path, '.txt');

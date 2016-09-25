@@ -1,0 +1,11 @@
+# contains info specific to admin folder 
+# it is a file that apache automatically reads
+
+# deny everyone but myself
+<Limit GET POST PUT>
+	order deny,allow
+	deny from all
+	allow from ::1 #local server
+	# for remote network: 
+	# allow from 88.235.166.121
+</Limit>

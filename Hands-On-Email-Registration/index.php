@@ -1,10 +1,10 @@
 <?php 
 require 'functions.php';
 
-/*if form has been posted...*/
+/*if form (only one form on a page allowed with this method) has been posted...*/
 if ($_SERVER['REQUEST_METHOD']=='POST') {
 	$name = trim($_POST['name']); /*trims extra space (value attr'un value'sunu)*/
-	$email = trim($_POST['email']);
+	$email = trim($_POST['email']); /*post metodu ile verileri depolayan file update edilmiş*/
 	// echo $name; die();
 
 	if (empty($name) || empty($email) || !valid_email($email)) {

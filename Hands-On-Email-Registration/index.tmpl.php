@@ -9,6 +9,7 @@
 	</style>
 </head>
 <body>
+	<!-- temp files are dumb but that much logic for temp files is acceptable -->
 	<h1>Join the Mailing List</h1>
 	<form action="" method="post">
 		<?php if (isset($status)) : ?> 
